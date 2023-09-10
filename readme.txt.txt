@@ -9,3 +9,24 @@ copy ina260.h .c file to core/include and core/src
 note i2c address no need to <<1
 sprintf %d. dont %u since negative value is possible and cause strange print value
 juwangvsu git repo 
+
+parts:
+	f401 board + usb-serial adapter
+	adafruit ina260 
+	motor driver board + 3s batt + motor
+wiring:
+	all board use 5v/gnd from f401 board
+	f401 i2c3:
+		sda, scl = pc9, pa8 <-----------> ina260 sda, scl
+		
+	f401 usart6	
+		tx, rx = pc6 pc7  <--------------> usb-serial rx, tx
+	ina260:
+		vcc,gnd sda, scl see above
+		vin+ <-------> batt + 
+		vin- <------->  motor board +
+	ina260 gnd <--------> batt -
+		this can be skipped here since the motor driver ground is also connected to batter -
+	the ina260 is inserted inline to the load. see photo
+	
+	
